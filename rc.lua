@@ -100,16 +100,16 @@ altkey = "Mod1"
 
 layouts =
    {
-	  awful.layout.suit.max,                  -- 10
-	  awful.layout.suit.floating,             -- 1
-	  awful.layout.suit.tile,                 -- 2
-	  --awful.layout.suit.tile.left,            -- 3
-	  -- awful.layout.suit.tile.bottom,          -- 4
-	  -- awful.layout.suit.tile.top,             -- 5
-	  awful.layout.suit.fair,                 -- 6
-	  -- awful.layout.suit.fair.horizontal,      -- 7
-	  awful.layout.suit.spiral,               -- 8
-	  --awful.layout.suit.spiral.dwindle,       -- 9
+	  awful.layout.suit.max,                  -- 1
+	  awful.layout.suit.floating,             -- 2
+	  awful.layout.suit.tile,                 -- 3
+	  --awful.layout.suit.tile.left,            -- 4
+	  -- awful.layout.suit.tile.bottom,          -- 5
+	  -- awful.layout.suit.tile.top,             -- 6
+	  awful.layout.suit.fair,                 -- 7
+	  -- awful.layout.suit.fair.horizontal,      -- 8
+	  awful.layout.suit.spiral,               -- 9
+	  --awful.layout.suit.spiral.dwindle,       -- 10
 	  --awful.layout.suit.max.fullscreen,     -- 11
 	  --awful.layout.suit.magnifier           -- 12
    }
@@ -324,15 +324,15 @@ mygmail = wibox.widget.textbox()
 notify_shown = false
 vicious.register(mygmail, vicious.widgets.gmail,
 				 function (widget, args)
-					notify_title = "Hai un nuovo messaggio"
+					notify_title = "New messages"
 					notify_text = '"' .. args["{subject}"] .. '"'
 					if (args["{count}"] > 0 ) then
 					   if (notify_shown == false) then
 						  if (args["{count}"] == 1) then
-							 notify_title = "Hai 1 nuovo messaggio"
+							 notify_title = "You have 1 new message"
 							 notify_text = args["{subject}"]
 						  else
-							 notify_title = "Hai " .. noti .. " nuovi messaggi"
+							 notify_title = "You have " .. noti .. " new message"
 							 notify_text = 'Ultimo: "' .. args["{subject}"] .. '"'
 						  end
 						  naughty.notify({ title = notify_title, text = notify_text,
@@ -375,14 +375,14 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, gray .. "Mem " .. coldef .. white .. "$2 " .. coldef, 13) -- in Megabytes
+vicious.register(memwidget, vicious.widgets.mem, white .. "$2".."M " .. coldef, 13) -- in Megabytes
 
 -- CPU widget
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu,gray .. "Cpu " .. coldef .. white .. "$1 " .. coldef , 3)
-cpuicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(tasks, false) end)))
+vicious.register(cpuwidget, vicious.widgets.cpu, white .. "$1 " .. coldef , 3)
+-- cpuicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(tasks, false) end)))
 
 -- Temp widget
 --tempicon = wibox.widget.imagebox()
@@ -493,7 +493,7 @@ vicious.register(batwidget, vicious.widgets.bat,
 					   })
 					else baticon:set_image(beautiful.widget_battery)
 					end
-					return gray .. "Bat " .. coldef .. white .. args[2] .. " " .. coldef
+					return white .. args[2] .. "% " .. coldef
 				 end, 1, 'BAT0')
 
 -- Volume widget
@@ -503,15 +503,15 @@ volumewidget = wibox.widget.textbox()
 vicious.register(volumewidget, vicious.widgets.volume,
 				 function (widget, args)
 					if (args[2] ~= "♩" ) then
-					   return gray .. "Vol " .. coldef .. white .. args[1] .. " " .. coldef
+					   return white .. args[1] .. " " .. coldef
 					else
-					   return gray .. "Vol " .. coldef .. white .. "mute " .. coldef
+					   return white .. "mute " .. coldef
 					end
 				 end, 1, "Master")
 
 -- Net widget
 netwidget = wibox.widget.textbox()
-vicious.register(netwidget, vicious.widgets.net, gray .. "Net" .. coldef .. white .. "${wls3 down_kb} " .. "<span font=\"Terminus 8\">↓↑ </span>" .. "${wls3 up_kb} " .. coldef, 3)
+vicious.register(netwidget, vicious.widgets.net, white .. "${wls3 down_kb} " .. "<span font=\"Terminus 8\">↓↑ </span>" .. "${wls3 up_kb} " .. coldef, 3)
 neticon = wibox.widget.imagebox()
 neticon:set_image(beautiful.widget_net)
 netwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(wifi) end)))
@@ -535,7 +535,7 @@ netwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.u
 spr = wibox.widget.textbox(' ')
 leftbr = wibox.widget.textbox(' [')
 rightbr = wibox.widget.textbox('] ')
-
+bar = wibox.widget.textbox(' | ')
 
 -- Layout
 
@@ -629,38 +629,44 @@ for s = 1, screen.count() do
    -- right_layout:add(spr)
    -- right_layout:add(mygmail)
    -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
+   right_layout:add(bar)
    right_layout:add(neticon)
    right_layout:add(netwidget)
-   right_layout:add(rightbr) --]
+   right_layout:add(bar)   
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
    right_layout:add(cpuicon)
    right_layout:add(cpuwidget)
-   right_layout:add(rightbr) --]
+   right_layout:add(bar) 
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
    right_layout:add(memicon)
    right_layout:add(memwidget)
-   right_layout:add(rightbr) --]
+   right_layout:add(bar)
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
    right_layout:add(baticon)
    right_layout:add(batwidget)
-   right_layout:add(rightbr) --]
+   right_layout:add(bar)
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
    right_layout:add(volicon)
    right_layout:add(volumewidget)
-   right_layout:add(rightbr) --]
+   right_layout:add(bar)
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
-   --    right_layout:add(leftbr) --[
+   --    -- right_layout:add(leftbr) --[
    --    right_layout:add(weatherwidget)
-   --    right_layout:add(rightbr) --]
+   --    -- right_layout:add(rightbr) --]
    --   -- right_layout:add(spr)
-   right_layout:add(leftbr) --[
+   -- right_layout:add(leftbr) --[
    right_layout:add(mytextclock)
-   right_layout:add(rightbr) --]
+   -- right_layout:add(rightbr) --]
    -- right_layout:add(spr)
 
    -- Now bring it all together (with the tasklist in the middle)
@@ -1038,6 +1044,7 @@ end)
 client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
-awful.util.spawn_with_shell("xfsettingsd")
-awful.util.spawn_with_shell("wicd-client --tray")
-awful.util.spawn_with_shell("dropboxd")
+run_once("xfsettingsd")
+-- run_once("wicd-client --tray")
+run_once("nm-applet")
+run_once("dropboxd")

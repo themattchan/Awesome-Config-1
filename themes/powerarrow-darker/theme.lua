@@ -10,7 +10,7 @@
 theme = {}
 
 themes_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker"
-theme.wallpaper                             = themes_dir .. "/wall.png"
+theme.wallpaper                             = themes_dir .. "/enterprise.jpg"
 
 theme.font                                  = "DejaVu Sans Book 9"
 theme.fg_normal                             = "#DCDCCC"
