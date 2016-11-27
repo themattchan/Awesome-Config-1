@@ -8,7 +8,7 @@
 
 -- {{{ Required Libraries
 
-gears 	        = require("gears")
+gears           = require("gears")
 awful           = require("awful")
 awful.rules     = require("awful.rules")
 awful.autofocus = require("awful.autofocus")
@@ -452,7 +452,7 @@ function add_info()
          margin = 10,
          height = 170,
          width = 585,
-         screen	= capi.mouse.screen
+         screen = capi.mouse.screen
    })
 end
 
@@ -755,7 +755,7 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
    -- Dropdown terminal
-   awful.key({ modkey,	          }, "z",     function () scratch.drop(terminal) end),
+   awful.key({ modkey,            }, "z",     function () scratch.drop(terminal) end),
 
    -- Widgets popups
    awful.key({ altkey,           }, "c",     function () add_calendar(7) end),
@@ -807,8 +807,8 @@ globalkeys = awful.util.table.join(
    awful.key({ modkey,        }, "q",      function () awful.util.spawn( "dwb", false ) end),
    awful.key({ modkey,        }, "a",      function () awful.util.spawn( "midori", false ) end),
    awful.key({ modkey,        }, "s",      function () awful.util.spawn(gui_editor) end),
-   awful.key({ modkey, 	     }, "t", 	    function () awful.util.spawn( "thunderbird", false ) end),
-   awful.key({ modkey,        }, "d", 	    function () awful.util.spawn( "spacefm", false ) end),
+   awful.key({ modkey,       }, "t",        function () awful.util.spawn( "thunderbird", false ) end),
+   awful.key({ modkey,        }, "d",       function () awful.util.spawn( "spacefm", false ) end),
 
    -- Prompt
    awful.key({ modkey }, "r", function () mypromptbox[mouse.screen]:run() end),
